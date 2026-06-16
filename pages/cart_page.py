@@ -1,7 +1,8 @@
+# pages/cart_page.py
 from selenium.webdriver.common.by import By
 
 class CartPage:
-    def __init__ (self, driver):
+    def __init__(self, driver):
         self.driver = driver
         self.cart_items = (By.CLASS_NAME, "cart_item")
         self.cart_items_name = (By.CLASS_NAME, "inventory_item_name")
@@ -12,14 +13,15 @@ class CartPage:
         productos = []
 
         for item in items:
-            nombre_item = self.driver.find_element(*self.cart_items_name).text
-            precio_item = self.driver.find_element(*self.cart_item_price).text
+            nombre_item = item.find_element(*self.cart_items_name).text
+            precio_item = item.find_element(*self.cart_item_price).text
 
-            productos.append([
-                {"name": nombre_item,
-                "price": precio_item
+            productos.append(
+                {
+                    "name": nombre_item,
+                    "price": precio_item
                 }
-                ]
-              )
+            )
 
-    return productos
+        
+        return productos

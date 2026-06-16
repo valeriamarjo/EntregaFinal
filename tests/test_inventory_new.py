@@ -1,9 +1,7 @@
-
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 import pytest
-from page.inventory_page import InventoryPage
-from page.login_page import LoginPage
+from pages.inventory_page import InventoryPage
+from pages.login_page import LoginPage
 
 
 def test_login_validation_title(driver_logged):
