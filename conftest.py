@@ -10,13 +10,13 @@ from utils.data_reader import leer_csv_login
 @pytest.fixture
 def driver():
     """1. Inicialización básica del navegador en modo incógnito."""
-    options = webdriver.ChromeOptions()
+    options = webdriver.ChromeOptions("--headless=new")
     options.add_argument("--incognito")
 
     chrome_driver = webdriver.Chrome(options=options)
     chrome_driver.implicitly_wait(5) 
 
-    yield chrome_driver #
+    yield chrome_driver 
 
     chrome_driver.quit()
 
@@ -32,7 +32,6 @@ def login_in_driver(driver):
 
 @pytest.fixture
 def driver_logged(driver):
-    """3. Fixture avanzada que lee el primer usuario de tu CSV y arranca logueado."""
     login_page = LoginPage(driver)
     
     lista_usuarios = leer_csv_login()

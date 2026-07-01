@@ -2,14 +2,16 @@ import pytest
 from pages.login_page import LoginPage
 from utils.data_reader import leer_csv_login
 
-@pytest.mark.parametrize("usuario, clave, es_valido", leer_csv_login())
-def test_login_data_driven(driver, usuario, clave, es_valido):
+@pytest.mark.ui
+@pytest.mark.parametrize("username, password, es_valido", leer_csv_login())
+def test_login_data_driven(driver, username, password, es_valido):
+    
     login_page = LoginPage(driver)
     
-    login_page.login(usuario, clave)
+    login_page.ejecutar_login(username, password)
 
     if es_valido:
-        assert "/inventory.html" in driver.current_url, "No se redirigió al inventario"
+        assert "/inventory.html" in driver.current_url, "El sistema no redirigió al inventario de productos"
     else:
-        error = login_page.get_error_messageerror_message()
-        assert "Epic sadface" in error, "No apareció el mensaje de error esperado"
+        texto_error = login_page.obtener_mensaje_error()
+        assert "Epic sadface" in texto_error, "El mensaje de error esperado no se visualizó en la pantalla"
