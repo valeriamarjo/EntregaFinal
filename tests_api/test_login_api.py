@@ -1,4 +1,3 @@
-# tests_api/test_login_api.py
 import pytest
 import requests
 

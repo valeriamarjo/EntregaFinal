@@ -11,7 +11,7 @@ headers_seguridad = {
 
 @pytest.mark.api
 def test_crear_usuario_endpoint():
-    #Validarla creación exitosa de un nuevo usuario con datos de Valeria
+    #Validar la creación exitosa de un nuevo usuario
     
     solicitud = {
         "name": "Valeria",
@@ -30,15 +30,13 @@ def test_crear_usuario_endpoint():
     assert datos_devueltos["name"] == solicitud["name"], "El nombre guardado no coincide con el enviado"
     assert datos_devueltos["email"] == solicitud["email"], "El email guardado no coincide con el enviado"
     
-    #Validación 3: Rendimiento/Performance
     tiempo_respuesta = respuesta.elapsed.total_seconds()
     assert tiempo_respuesta < 1.0, f"La API tardó demasiado: {tiempo_respuesta} segundos"
 
 
 @pytest.mark.api
 def test_consultar_usuario_endpoint():
-    #Valida la obtención correcta de la información de un usuario específico.
-    
+        
     url_especifica = f"{USERS_URL}/2"
     
     respuesta = requests.get(url_especifica, headers=headers_seguridad, verify=False)
@@ -51,12 +49,10 @@ def test_consultar_usuario_endpoint():
 
 @pytest.mark.api
 def test_eliminar_usuario_endpoint():
-    #Valida la eliminación de un usuario dentro de la plataforma
     
     url_especifica = f"{USERS_URL}/2"
     
-    #DELETE para dar de baja
+    #baja de usuario
     respuesta = requests.delete(url_especifica, headers=headers_seguridad, verify=False)
     
-    # Validación HTTP 204 (Éxito sin cuerpo devuelto)
     assert respuesta.status_code == 204, f"Se esperaba 204 en cambio se recibió {respuesta.status_code}"
